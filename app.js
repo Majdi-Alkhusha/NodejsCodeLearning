@@ -5,8 +5,13 @@ const app = express();
 const path = require("path")
 const productRouter = require("./routes/productRoute")
 var indexMiddleware = require('./middleware/index')
+const bp = require('body-parser')
 // Run my app on my port
 const port = 3000
+
+//then will be add it here
+app.use(bp.json())
+app.use(bp.urlencoded({ extended: true }))/* here we are use urlencoded */
 //create my first route
 app.get('/', indexMiddleware.auth, (req, res) => {
     res.send("Home page of admin")// for example

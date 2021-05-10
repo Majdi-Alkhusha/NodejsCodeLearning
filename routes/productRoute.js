@@ -1,13 +1,35 @@
 var express = require("express")
 var router = express.Router();
 var indexMiddleware = require('../middleware/index')
+var UserModel = require("../models/users")
 
-//HTTP request => we will talk about post and get 
-router.get("/getHTTP/:hello/:world", function (req, res) {
-    console.log(req.params)
-    res.send(req.params)
+//route to create new field in database
+router.post('/userTable', function (req, res) {
+    UserModel.addFieldUser(req.body, function (err, fullResponse) {
+        if (err) console.log("err=>", err)
+        res.send("Done!")
+    })
 })
 
+//get all field in user table
+router.get('/getUserTable', function (req, res) {
+    UserModel.getAllUser(function (err, fullResponse) {
+        if (err) console.log("err", err)
+        res.send(fullResponse)
+    })
+})
+
+//delete field in user table
+router.get('/deleteUserTable/:id', function (req, res) {
+    UserModel.deleteUserId({ id: req.params.id }, function (err, fullResponse) {
+        if (err) console.log("err", err)
+        res.send(fullResponse)
+    })
+})
+
+/* thx for watching */
+
+//HTTP request => we will talk about post and get 
 /* but we can't use post like this  */
 router.post("/postHTTP", function (req, res) {
     console.log(req.body)/* Here we will use body=> for post */

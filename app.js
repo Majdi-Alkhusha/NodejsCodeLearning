@@ -4,11 +4,12 @@ const CreateTable = require("./config/createTables")
 const app = express();
 const path = require("path")
 const productRouter = require("./routes/productRoute")
+var indexMiddleware = require('./middleware/index')
 // Run my app on my port
 const port = 3000
 //create my first route
-app.get('/', (req, res) => {
-    res.send("First route")
+app.get('/', indexMiddleware.auth, (req, res) => {
+    res.send("Home page of admin")// for example
 })
 
 //in this video we will learn more about route
